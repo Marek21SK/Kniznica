@@ -55,7 +55,7 @@ public class UserController{
         }
     }
     return f_Users;
-}
+    }
 
 
     @GetMapping("/api/userId")
@@ -81,13 +81,13 @@ public class UserController{
         return users;
     }
 
-@DeleteMapping("api/users/{userId}")
-public void delete_User(@PathVariable Integer userId){
+    @DeleteMapping("api/users/{userId}")
+    public void delete_User(@PathVariable Integer userId){
         this.users.remove(this.users.get(userId));
-}
+    }
 
-@PutMapping("api/users{userId}")
-public List<User> put_User(@PathVariable Integer userId, @RequestBody User user){
+    @PutMapping("api/users{userId}")
+    public List<User> put_User(@PathVariable Integer userId, @RequestBody User user){
         this.users.get(userId).setFirstName(user.getFirstName());
         this.users.get(userId).setLastName(user.getLastName());
         this.users.get(userId).setEmail(user.getEmail());
