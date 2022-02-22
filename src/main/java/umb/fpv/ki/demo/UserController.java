@@ -36,6 +36,7 @@ public class UserController{
         User_3.setLastName("Morgan");
         User_3.setEmail("kassthe100morgan@gmail.com");
         User_3.setId("3");
+        users.add(User_3);
 
         return users;
     }
