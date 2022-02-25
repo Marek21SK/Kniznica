@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RestController
 public class UserController {
 
@@ -81,10 +82,12 @@ public class UserController {
         return users;
     }
 
+
     @DeleteMapping("api/users/{userId}")
     public void delete_User(@PathVariable Integer userId) {
         this.users.remove(this.users.get(userId));
     }
+
 
     @PutMapping("api/users{userId}")
     public List<User> put_User(@PathVariable Integer userId, @RequestBody User user) {
