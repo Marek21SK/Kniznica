@@ -1,6 +1,6 @@
 package umb.fpv.ki.demo;
 
-public class User { ublic class User {
+public class User {
     private String id;
     private String firstName;
     private String lastName;
@@ -39,4 +39,3 @@ public class User { ublic class User {
     }
 }
 
-}
