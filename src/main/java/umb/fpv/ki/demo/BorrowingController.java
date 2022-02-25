@@ -1,29 +1,16 @@
-
 package umb.fpv.ki.demo;
 
-
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
-class BorowingController{
+public class BorrowingController{
     List<Borrowing> borrowings;
 
-    public BorowingController(){
+    public BorrowingController(){
         this.borrowings = init_1();
     }
 
@@ -73,4 +60,3 @@ class BorowingController{
         this.borrowings.remove(this.borrowings.get(borrowingId));
     }
 }
-
