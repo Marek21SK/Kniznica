@@ -22,7 +22,7 @@ public class UserController{
         return userService.getUsers(userFirstName);
     }
 
-    @GetMapping("/api/user/{userId")
+    @GetMapping("/api/user/{userId}")
     public User getUser(@PathVariable Integer userId){
         return this.userService.getUserId(userId);
     }
