@@ -57,13 +57,13 @@ public class BookService {
 
     }
 
-    public void deleteBook(int bookId){
-        this.books.remove(this.books.get(bookId));
+    public void deleteBook(int bookIsbn){
+        this.books.remove(this.books.get(bookIsbn));
     }
 
-    public void updateBook(int bookId, Book book){
-        this.books.get(bookId).setTitle(book.getTitle());
-        this.books.get(bookId).setAutfirstName(book.getAutfirstName());
+    public void updateBook(int bookIsbn, Book book){
+        this.books.get(bookIsbn).setTitle(book.getTitle());
+        this.books.get(bookIsbn).setAutfirstName(book.getAutfirstName());
     }
 
     public Book getBook(int bookIsbn){
