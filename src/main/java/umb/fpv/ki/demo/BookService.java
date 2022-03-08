@@ -1,81 +1,76 @@
 package umb.fpv.ki.demo;
 
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
-    private List<Book> books;
+    private final BookRepository bookRepository;
 
-    public BookService(){
-        this.books = init();
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
-    private List<Book> init(){
-        List<Book> books = new ArrayList<>();
-        Book Book_1 = new Book();
-        Book_1.setIsbn("97880755442703");
-        Book_1.setAutfirstName("Kiera");
-        Book_1.setAutlastName("Cassova");
-        Book_1.setTitle("Koruna");
-        Book_1.setCount("10");
+    private static BookDto mapToBookDto(BookEntity bookEntity) {
+        BookDto bookDto = new BookDto();
 
+        bookDto.setAutfirstName(bookEntity.getAutfirstName());
+        bookDto.setTitle(bookEntity.getTitle());
 
-        Book Book_2 = new Book();
-        Book_2.setIsbn("978809972040");
-        Book_2.setAutfirstName("Baja");
-        Book_2.setAutlastName("Dolce");
-        Book_2.setTitle("Habibi");
-        Book_2.setCount("15");
-
-
-        Book Book_3 = new Book();
-        Book_3.setIsbn("9788022206846");
-        Book_3.setAutfirstName("Rick");
-        Book_3.setAutlastName("Yancey");
-        Book_3.setTitle("Piata vlna");
-        Book_2.setCount("8");
-
-        return books;
+        return bookDto;
     }
 
-    public List<Book> getBooks(String bookAutfirstName){
-        if(bookAutfirstName==null){
-            return this.books;
+    @Transactional
+    public List<BookDto> getBooks(String bookAuthor) {
+        List<BookDto> ret = new LinkedList<>();
+        for (BookEntity b1 : bookRepository.findAll()) {
+            BookDto b2 = mapToBookDto(b1);
+            ret.add(b2);
         }
+        return ret;
+    }
 
-        List<Book> filteredBooks = new ArrayList<>();
-
-        for (Book book : books){
-            if (book.getAutfirstName().equals(book.getAutfirstName())){
-                filteredBooks.add(book);
-            }
+    @Transactional
+    public BookDto getBook(Long bookId) {
+        Optional<BookEntity> byId = bookRepository.findById(bookId);
+        if (byId.isPresent()) {
+            return mapToBookDto(byId.get());
         }
-
-        return filteredBooks;
-
+        return null;
     }
 
-    public void deleteBook(int bookId){
+    @Transactional
+    public Long createBook(BookDto bookDto) {
+        BookEntity bookEntity = new BookEntity();
 
-        this.books.remove(this.books.get(bookId));
+        bookEntity.setAutfirstName(bookDto.getAutfirstName());
+        bookEntity.setTitle(bookDto.getTitle());
+
+        this.bookRepository.save(bookEntity);
+
+        return bookEntity.getId();
     }
 
-    public void updateBook(int bookId, Book book){
-        this.books.get(bookId).setTitle(book.getTitle());
-        this.books.get(bookId).setAutfirstName(book.getAutfirstName());
+    @Transactional
+    public void updateBook(int bookId, BookDto bookDto) {
+        Optional<BookEntity> byId = bookRepository.findById((long)bookId);
+        if (byId.isPresent()) {
+            byId.get().setAutfirstName(bookDto.getAutfirstName());
+            byId.get().setTitle(bookDto.getTitle());
+        }
     }
 
-    public Book getBook(int bookId){
-        return this.books.get(bookId);
+    @Transactional
+    public void deleteBook(int bookId) {
+        Optional<BookEntity> byId = bookRepository.findById((long)bookId);
+        if (byId.isPresent()) {
+            bookRepository.delete(byId.get());
+        }
     }
-
-    public Integer createBook(Book book){
-        this.books.add(book);
-        return this.books.size()-1;
-    }
-
 
 }
+
 
