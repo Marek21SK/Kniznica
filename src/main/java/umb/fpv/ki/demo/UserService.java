@@ -2,108 +2,79 @@ package umb.fpv.ki.demo;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
-    private final List<User> users;
+    private final UserRepository userRepository;
 
-    public UserService(){
-        this.users = init();
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
     }
 
-    public List<User> init(){
-        List<User> users = new ArrayList<>();
+    private static UserDto mapUserDto(UserEntity userEntity){
+        UserDto userDto = new UserDto();
 
-        User User_1 = new User();
-        User_1.setFirstName("Andrej");
-        User_1.setLastName("Sapkowski");
-        User_1.setEmail("andrejwitchersapkowski@gmail.pl");
-        User_1.setId("1");
-        users.add(User_1);
+        userDto.setFirstName(userEntity.getFirstName());
+        userDto.setLastName(userEntity.getLastName());
+        userDto.setEmail(userEntity.getEmail());
+        userDto.setId(userEntity.getId());
 
-        User User_2 = new User();
-        User_2.setFirstName("George Raymond Richard");
-        User_2.setLastName("Martin");
-        User_2.setEmail("georgerrgotmartin@gmail.com");
-        User_2.setId("2");
-        users.add(User_2);
-
-        User User_3 = new User();
-        User_3.setFirstName("Kass");
-        User_3.setLastName("Morgan");
-        User_3.setEmail("kassthe100morgan@gmail.com");
-        User_3.setId("3");
-        users.add(User_3);
-
-        return users;
+        return userDto;
     }
 
-    public List<User> getUsers(String userFirstName ){
-        if (userFirstName == null){
-            return this.users;
+    @Transactional
+    public List<UserDto> getUsers(String userFirstName){
+        List<UserDto> ret = new LinkedList<>();
+        for (UserEntity u1 : userRepository.findAll()){
+            UserDto u2 = mapUserDto(u1);
+            ret.add(u2);
         }
-
-        List<User> f_Users = new ArrayList<>();
-
-        for (User user: users){
-            if (user.getFirstName().equals(userFirstName)){
-                f_Users.add(user);
-            }
-        }
-
-        return f_Users;
+        return ret;
     }
 
-    public User getUserId(int userId){
-        return this.users.get(userId);
+    @Transactional
+    public List<UserDto>getUserId(String userID){
+        List<UserDto> ret = new LinkedList<>();
+        for (UserEntity u1 : userRepository.findAll()){
+            UserDto u2 = mapUserDto(u1);
+            ret.add(u2);
+        }
+        return ret;
     }
 
-    public List<User> getUserId(String userId){
-        if (userId == null){
-            return this.users;
-        }
+    @Transactional
+    public String create_User(UserDto userDto){
+        UserEntity userEntity = new UserEntity();
 
-        List<User> f_Users = new ArrayList<>();
+        userEntity.setFirstName(userDto.getFirstName());
+        userEntity.setLastName(userDto.getLastName());
+        userEntity.setEmail(userDto.getEmail());
+        userEntity.setId(userDto.getId());
 
-        for (User user: users){
-            if (user.getId().equals(userId)){
-                f_Users.add(user);
-            }
-        }
-        return f_Users;
+        this.userRepository.save(userEntity);
+        return userEntity.getId();
     }
 
-    public List<User> getUserEmail(String userEmail){
-        if (userEmail == null){
-            return this.users;
-        }
-
-        List<User> f_Users = new ArrayList<>();
-
-        for (User user: users){
-            if (user.getEmail().equals(userEmail)){
-                f_Users.add(user);
-            }
-        }
-        return f_Users;
-    }
-
-    public List<User> create_User(User user){
-        this.users.add(user);
-        return users;
-    }
-
+    @Transactional
     public void delete_User(int userId){
-        this.users.remove(this.users.get(userId));
+        Optional<UserEntity> byID = userRepository.findById((long)userId);
+        if(byID.isPresent()){
+            userRepository.delete(byID.get());
+        }
     }
 
-    public List<User> put_User(int userId, User user){
-        this.users.get(userId).setFirstName(user.getFirstName());
-        this.users.get(userId).setLastName(user.getLastName());
-        this.users.get(userId).setEmail(user.getEmail());
-        this.users.get(userId).setId(user.getId());
-        return users;
+    @Transactional
+    public void put_User(int userId, UserDto userDto){
+        Optional<UserEntity> byID = userRepository.findById((long)userId);
+        if(byID.isPresent()){
+            byID.get().setFirstName(userDto.getFirstName());
+            byID.get().setLastName(userDto.getLastName());
+            byID.get().setEmail(userDto.getEmail());
+            byID.get().setId(userDto.getId());
+        }
     }
 }

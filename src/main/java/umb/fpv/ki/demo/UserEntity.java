@@ -8,18 +8,16 @@ import javax.persistence.Id;
 public class UserEntity{
     @Id
     @GeneratedValue
-    private String id;
+    private String userID;
     private String firstName;
     private String lastName;
     private String email;
 
     public String getId() {
-        return id;
+        return userID;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public void setId (String userID) {this.userID = userID;}
 
     public String getFirstName() {
         return firstName;
