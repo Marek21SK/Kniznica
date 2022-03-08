@@ -1,9 +1,7 @@
 package umb.fpv.ki.demo;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,7 +17,7 @@ public class BookController {
     }
 
     @GetMapping("/api/books")
-    public List<Book> getBooks(@RequestParam(required = false) String bookAuthor) {
+    public List<BookDto> getBooks(@RequestParam(required = false) String bookAuthor) {
         return bookService.getBooks(bookAuthor);
     }
 
@@ -29,17 +27,17 @@ public class BookController {
     }
 
     @PutMapping("/api/books/{bookId}")
-    public void updateBook(@PathVariable Integer bookId, @RequestBody Book book){
+    public void updateBook(@PathVariable Integer bookId, @RequestBody BookDto book){
         bookService.updateBook(bookId, book);
     }
 
     @GetMapping("/api/books/{bookId}")
-    public Book getBook(@PathVariable Integer bookId){
+    public BookDto getBook(@PathVariable Long bookId){
         return bookService.getBook(bookId);
     }
 
     @PostMapping("/api/books")
-    public Integer createBook(@RequestBody Book book){
+    public String createBook(@RequestBody BookDto book){
         return bookService.createBook(book);
     }
 

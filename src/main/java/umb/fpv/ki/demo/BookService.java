@@ -2,6 +2,7 @@ package umb.fpv.ki.demo;
 
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +44,7 @@ public class BookService {
     }
 
     @Transactional
-    public Long createBook(BookDto bookDto) {
+    public String createBook(BookDto bookDto) {
         BookEntity bookEntity = new BookEntity();
 
         bookEntity.setAutfirstName(bookDto.getAutfirstName());
