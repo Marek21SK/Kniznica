@@ -1,18 +1,23 @@
 package umb.fpv.ki.demo;
 
-public class User {
-    private String id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class UserEntity{
+    @Id
+    @GeneratedValue
+    private String userID;
     private String firstName;
     private String lastName;
     private String email;
 
     public String getId() {
-        return id;
+        return userID;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public void setId (String userID) {this.userID = userID;}
 
     public String getFirstName() {
         return firstName;
@@ -38,4 +43,3 @@ public class User {
         this.email = email;
     }
 }
-
