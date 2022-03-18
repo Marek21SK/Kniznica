@@ -24,6 +24,7 @@ public class UserService {
         return userDto;
     }
 
+    //LIST OF CUSTOMERS
     @Transactional
     public List<UserDto> getUsers(String userFirstName){
         List<UserDto> ret = new LinkedList<>();
@@ -34,6 +35,7 @@ public class UserService {
         return ret;
     }
 
+    //GET CUSTOMER BY ID
     @Transactional
     public UserDto getUserId(int userID){
         for (UserEntity u1 : userRepository.findAll()){
@@ -45,6 +47,7 @@ public class UserService {
         return null;
     }
 
+    //CREATE CUSTOMER
     @Transactional
     public Long create_User(UserDto userDto){
         UserEntity userEntity = new UserEntity();
@@ -57,17 +60,19 @@ public class UserService {
         return userEntity.getId();
     }
 
+    //DELETE CUSTOMER
     @Transactional
     public void delete_User(int userId){
-        Optional<UserEntity> byID = userRepository.findById((long)userId);
+        Optional<UserEntity> byID = userRepository.findById(userId);
         if(byID.isPresent()){
             userRepository.delete(byID.get());
         }
     }
 
+    //UPDATE CUSTOMER
     @Transactional
     public void put_User(int userId, UserDto userDto){
-        Optional<UserEntity> byID = userRepository.findById((long)userId);
+        Optional<UserEntity> byID = userRepository.findById(userId);
         if(byID.isPresent()){
             byID.get().setFirstName(userDto.getFirstName());
             byID.get().setLastName(userDto.getLastName());
