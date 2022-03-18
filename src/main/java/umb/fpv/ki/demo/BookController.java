@@ -7,9 +7,6 @@ import java.util.List;
 @RestController
 public class BookController {
 
-    private List<Book> books;
-
-
     private BookService bookService;
 
     public BookController(BookService bookService){
