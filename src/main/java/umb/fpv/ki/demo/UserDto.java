@@ -1,17 +1,17 @@
 package umb.fpv.ki.demo;
 
 public class UserDto {
-    private String userID;
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
 
-    public String getId() {
-        return userID;
+    public Long getId() {
+        return id;
     }
 
-    public void setId(String userID) {
-        this.userID = userID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {

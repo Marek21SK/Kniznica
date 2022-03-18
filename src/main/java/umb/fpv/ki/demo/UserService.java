@@ -21,8 +21,6 @@ public class UserService {
         userDto.setFirstName(userEntity.getFirstName());
         userDto.setLastName(userEntity.getLastName());
         userDto.setEmail(userEntity.getEmail());
-        userDto.setId(userEntity.getId());
-
         return userDto;
     }
 
@@ -37,23 +35,23 @@ public class UserService {
     }
 
     @Transactional
-    public List<UserDto>getUserId(String userID){
-        List<UserDto> ret = new LinkedList<>();
+    public UserDto getUserId(int userID){
         for (UserEntity u1 : userRepository.findAll()){
-            UserDto u2 = mapUserDto(u1);
-            ret.add(u2);
+            if(u1.getId().equals(userID)){
+                UserDto u2 = mapUserDto(u1);
+                return u2;
+            }
         }
-        return ret;
+        return null;
     }
 
     @Transactional
-    public String create_User(UserDto userDto){
+    public Long create_User(UserDto userDto){
         UserEntity userEntity = new UserEntity();
 
         userEntity.setFirstName(userDto.getFirstName());
         userEntity.setLastName(userDto.getLastName());
         userEntity.setEmail(userDto.getEmail());
-        userEntity.setId(userDto.getId());
 
         this.userRepository.save(userEntity);
         return userEntity.getId();
