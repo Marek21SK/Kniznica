@@ -26,7 +26,7 @@ public class UserService {
 
     //LIST OF CUSTOMERS
     @Transactional
-    public List<UserDto> getUsers(String userFirstName){
+    public List<UserDto> getUsers(String userLastName){
         List<UserDto> ret = new LinkedList<>();
         for (UserEntity u1 : userRepository.findAll()){
             UserDto u2 = mapUserDto(u1);

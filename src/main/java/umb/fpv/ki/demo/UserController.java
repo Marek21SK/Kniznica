@@ -20,8 +20,8 @@ public class UserController{
 
     //LIST OF CUSTOMERS
     @GetMapping("/api/customers")
-    public List<UserDto> getUsers(@RequestParam(required = false) String userFirstName){
-        return userService.getUsers(userFirstName);}
+    public List<UserDto> getUsers(@RequestParam(required = false) String userLastName){
+        return userService.getUsers(userLastName);}
 
     //GET CUSTOMER BY ID
     @GetMapping("/api/customerId")
