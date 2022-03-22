@@ -12,26 +12,32 @@ public class UserController{
         this.userService = userService;
     }
 
-    @GetMapping("/api/users")
-    public List<UserDto> getUsers(@RequestParam(required = false) String userFirstName){
-        return userService.getUsers(userFirstName);}
+    //CREATE CUSTOMERS
+    @PostMapping("/api/customers")
+    public Long create_User(@RequestBody UserDto user){
+        return userService.create_User(user);
+    }
 
+    //LIST OF CUSTOMERS
+    @GetMapping("/api/customers")
+    public List<UserDto> getUsers(@RequestParam(required = false) String userLastName){
+        return userService.getUsers(userLastName);}
+
+    //GET CUSTOMER BY ID
     @GetMapping("/api/userId")
-    public List<UserDto> getUsersId(@RequestParam(required = false) String userID){
-        return userService.getUserId(userID);}
-
-    @PostMapping("/api/users")
-    public String create_User(@RequestBody UserDto user){
-      return userService.create_User(user);
+    public UserDto getUsersId(@PathVariable Long userId){
+        return userService.getUserId(userId);
     }
 
-    @DeleteMapping("api/users/{userId}")
-    public void delete_User(@PathVariable int userId) {
-        userService.delete_User(userId);
-    }
-
-    @PutMapping("api/users{userId}")
-    public void put_User(@PathVariable int userId, @RequestBody UserDto user){
+    //UPDATE CUSTOMER
+    @PutMapping("api/customers/{userId}")
+    public void put_User(@PathVariable Long userId, @RequestBody UserDto user){
         userService.put_User(userId, user);
+    }
+
+    //DELETE CUSTOMER
+    @DeleteMapping("api/customers/{userId}")
+    public void delete_User(@PathVariable Long userId) {
+        userService.delete_User(userId);
     }
 }

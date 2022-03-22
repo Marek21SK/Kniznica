@@ -1,40 +1,40 @@
 package umb.fpv.ki.demo;
 
 public class UserDto {
-    private String userID;
-    private String firstName;
-    private String lastName;
-    private String email;
+    private Long id;
+    private String meno;
+    private String priezvisko;
+    private String kontakt;
 
-    public String getId() {
-        return userID;
+    public Long getId() {
+        return id;
     }
 
-    public void setId(String userID) {
-        this.userID = userID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getMeno() {
+        return meno;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setMeno(String meno) {
+        this.meno = meno;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPriezvisko() {
+        return priezvisko;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPriezvisko(String priezvisko) {
+        this.priezvisko = priezvisko;
     }
 
-    public String getEmail() {
-        return email;
+    public String getKontakt() {
+        return kontakt;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setKontakt(String kontakt) {
+        this.kontakt = kontakt;
     }
 }

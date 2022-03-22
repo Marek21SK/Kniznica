@@ -18,16 +18,16 @@ public class UserService {
     private static UserDto mapUserDto(UserEntity userEntity){
         UserDto userDto = new UserDto();
 
-        userDto.setFirstName(userEntity.getFirstName());
-        userDto.setLastName(userEntity.getLastName());
-        userDto.setEmail(userEntity.getEmail());
         userDto.setId(userEntity.getId());
-
+        userDto.setMeno(userEntity.getMeno());
+        userDto.setPriezvisko(userEntity.getPriezvisko());
+        userDto.setKontakt(userEntity.getKontakt());
         return userDto;
     }
 
+    //LIST OF CUSTOMERS
     @Transactional
-    public List<UserDto> getUsers(String userFirstName){
+    public List<UserDto> getUsers(String userLastName){
         List<UserDto> ret = new LinkedList<>();
         for (UserEntity u1 : userRepository.findAll()){
             UserDto u2 = mapUserDto(u1);
@@ -36,45 +36,49 @@ public class UserService {
         return ret;
     }
 
+    //GET CUSTOMER BY ID
     @Transactional
-    public List<UserDto>getUserId(String userID){
-        List<UserDto> ret = new LinkedList<>();
+    public UserDto getUserId(Long userId){
         for (UserEntity u1 : userRepository.findAll()){
-            UserDto u2 = mapUserDto(u1);
-            ret.add(u2);
+            if(u1.getId().equals(userId)){
+                UserDto u2 = mapUserDto(u1);
+                return u2;
+            }
         }
-        return ret;
+        return null;
     }
 
+    //CREATE CUSTOMER
     @Transactional
-    public String create_User(UserDto userDto){
+    public Long create_User(UserDto userDto){
         UserEntity userEntity = new UserEntity();
 
-        userEntity.setFirstName(userDto.getFirstName());
-        userEntity.setLastName(userDto.getLastName());
-        userEntity.setEmail(userDto.getEmail());
-        userEntity.setId(userDto.getId());
+        userEntity.setMeno(userDto.getMeno());
+        userEntity.setPriezvisko(userDto.getPriezvisko());
+        userEntity.setKontakt(userDto.getKontakt());
 
         this.userRepository.save(userEntity);
         return userEntity.getId();
     }
 
+    //DELETE CUSTOMER
     @Transactional
-    public void delete_User(int userId){
-        Optional<UserEntity> byID = userRepository.findById((long)userId);
-        if(byID.isPresent()){
-            userRepository.delete(byID.get());
+    public void delete_User(Long userId){
+        Optional<UserEntity> byId = userRepository.findById(userId);
+        if(byId.isPresent()){
+            userRepository.delete(byId.get());
         }
     }
 
+    //UPDATE CUSTOMER
     @Transactional
-    public void put_User(int userId, UserDto userDto){
-        Optional<UserEntity> byID = userRepository.findById((long)userId);
-        if(byID.isPresent()){
-            byID.get().setFirstName(userDto.getFirstName());
-            byID.get().setLastName(userDto.getLastName());
-            byID.get().setEmail(userDto.getEmail());
-            byID.get().setId(userDto.getId());
+    public void put_User(Long userId, UserDto userDto){
+        Optional<UserEntity> byId = userRepository.findById(userId);
+        if(byId.isPresent()){
+            byId.get().setMeno(userDto.getMeno());
+            byId.get().setPriezvisko(userDto.getPriezvisko());
+            byId.get().setKontakt(userDto.getKontakt());
+            byId.get().setId(userDto.getId());
         }
     }
 }
