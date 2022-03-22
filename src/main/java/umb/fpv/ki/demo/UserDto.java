@@ -14,25 +14,27 @@ public class UserDto {
         this.id = id;
     }
 
-    public String getFirstName() {return meno;}
+    public String getMeno() {
+        return meno;
+    }
 
-    public void setFirstName(String meno) {
+    public void setMeno(String meno) {
         this.meno = meno;
     }
 
-    public String getLastName() {
+    public String getPriezvisko() {
         return priezvisko;
     }
 
-    public void setLastName(String priezvisko) {
+    public void setPriezvisko(String priezvisko) {
         this.priezvisko = priezvisko;
     }
 
-    public String getEmail() {
+    public String getKontakt() {
         return kontakt;
     }
 
-    public void setEmail(String kontakt) {
+    public void setKontakt(String kontakt) {
         this.kontakt = kontakt;
     }
 }

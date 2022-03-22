@@ -24,20 +24,20 @@ public class UserController{
         return userService.getUsers(userLastName);}
 
     //GET CUSTOMER BY ID
-    @GetMapping("/api/customerId")
-    public UserDto getUsersId(@PathVariable int userID){
-        return userService.getUserId(userID);
+    @GetMapping("/api/userId")
+    public UserDto getUsersId(@PathVariable Long userId){
+        return userService.getUserId(userId);
     }
 
     //UPDATE CUSTOMER
-    @PutMapping("api/customers{customerId}")
-    public void put_User(@PathVariable int userId, @RequestBody UserDto user){
+    @PutMapping("api/customers/{userId}")
+    public void put_User(@PathVariable Long userId, @RequestBody UserDto user){
         userService.put_User(userId, user);
     }
 
     //DELETE CUSTOMER
-    @DeleteMapping("api/customers/{customerId}")
-    public void delete_User(@PathVariable int userId) {
+    @DeleteMapping("api/customers/{userId}")
+    public void delete_User(@PathVariable Long userId) {
         userService.delete_User(userId);
     }
 }
