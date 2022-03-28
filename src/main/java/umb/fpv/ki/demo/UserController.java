@@ -24,7 +24,7 @@ public class UserController{
         return userService.getUsers(userLastName);}
 
     //GET CUSTOMER BY ID
-    @GetMapping("/api/userId")
+    @GetMapping("/api/customers/{userId}")
     public UserDto getUsersId(@PathVariable Long userId){
         return userService.getUserId(userId);
     }
