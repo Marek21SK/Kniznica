@@ -18,7 +18,7 @@ public class BookService {
     private static BookDto mapToBookDto(BookEntity bookEntity) {
         BookDto bookDto = new BookDto();
 
-        bookDto.setAutfirstName(bookEntity.getAutfirstName());
+        bookDto.setAuthor(bookEntity.getAuthor());
         bookDto.setTitle(bookEntity.getTitle());
 
         return bookDto;
@@ -36,18 +36,22 @@ public class BookService {
 
     @Transactional
     public BookDto getBook(Long bookId) {
-        Optional<BookEntity> byId = bookRepository.findById(bookId);
-        if (byId.isPresent()) {
-            return mapToBookDto(byId.get());
+        for (BookEntity b1 : bookRepository.findAll()){
+            if(b1.getId().equals(bookId)){
+                BookDto b2 = mapToBookDto(b1);
+                return b2;
+            }
         }
         return null;
-    }
+     }
+
+
 
     @Transactional
     public String createBook(BookDto bookDto) {
         BookEntity bookEntity = new BookEntity();
 
-        bookEntity.setAutfirstName(bookDto.getAutfirstName());
+        bookEntity.setAuthor(bookDto.getAuthor());
         bookEntity.setTitle(bookDto.getTitle());
 
         this.bookRepository.save(bookEntity);
@@ -59,7 +63,7 @@ public class BookService {
     public void updateBook(int bookId, BookDto bookDto) {
         Optional<BookEntity> byId = bookRepository.findById((long)bookId);
         if (byId.isPresent()) {
-            byId.get().setAutfirstName(bookDto.getAutfirstName());
+            byId.get().setAuthor(bookDto.getAuthor());
             byId.get().setTitle(bookDto.getTitle());
         }
     }

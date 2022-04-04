@@ -2,8 +2,7 @@ package umb.fpv.ki.demo;
 
 public class BookDto {
     private String isbn;
-    private String autfirstName;
-    private String autlastName;
+    private String author;
     private String title;
     private String count;
     private String id;
@@ -16,20 +15,13 @@ public class BookDto {
         this.isbn = isbn;
     }
 
-    public String getAutfirstName() {
-        return autfirstName;
+
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAutfirstName(String isbn) {
-        this.autfirstName = autfirstName;
-    }
-
-    public String getAutlastName() {
-        return autlastName;
-    }
-
-    public void setAutlastName(String autlastName) {
-        this.autlastName = autlastName;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getTitle() {
@@ -40,11 +32,21 @@ public class BookDto {
         this.title = title;
     }
 
+
     public String getCount() {
         return count;
     }
 
     public void setCount(String count) {
         this.count = count;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String isbn) {
+        this.id = id;
     }
 }
