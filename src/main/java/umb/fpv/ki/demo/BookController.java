@@ -7,38 +7,37 @@ import java.util.List;
 @RestController
 public class BookController {
 
-    private List<Book> books;
-
-
     private BookService bookService;
 
     public BookController(BookService bookService){
         this.bookService = bookService;
     }
 
-    @GetMapping("/api/books")
-    public List<BookDto> getBooks(@RequestParam(required = false) String bookAuthor) {
+    //List of book
+    @GetMapping ("/api/books")
+    public List<BookDto> getBook (@RequestParam(required = false) String bookAuthor) {
         return bookService.getBooks(bookAuthor);
     }
-
-    @DeleteMapping("/api/books/{bookId}")
-    public void deleteBook(@PathVariable Integer bookId){
-        bookService.deleteBook(bookId);
-    }
-
+    //Update of book
     @PutMapping("/api/books/{bookId}")
-    public void updateBook(@PathVariable Integer bookId, @RequestBody BookDto book){
+    public void updateBook(@PathVariable int bookId, @RequestBody BookDto book){
         bookService.updateBook(bookId, book);
     }
-
-    @GetMapping("/api/books/{bookId}")
-    public BookDto getBook(@PathVariable Long bookId){
-        return bookService.getBook(bookId);
+// Get book by id
+    @GetMapping("/api/bookId")
+    public BookDto getBook(@PathVariable int bookId){
+        return bookService.getBook((long) bookId);
     }
 
+    //Create book
     @PostMapping("/api/books")
     public String createBook(@RequestBody BookDto book){
         return bookService.createBook(book);
+    }
+
+    @DeleteMapping("/api/books/{bookId}")
+    public void deleteBook(@PathVariable int  bookId){
+        bookService.deleteBook(bookId);
     }
 
 }
