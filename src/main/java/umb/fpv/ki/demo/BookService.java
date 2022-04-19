@@ -20,6 +20,8 @@ public class BookService {
 
         bookDto.setAuthor(bookEntity.getAuthor());
         bookDto.setTitle(bookEntity.getTitle());
+        bookDto.setIsbn(bookDto.getIsbn());
+        bookDto.setCount(bookDto.getCount());
 
         return bookDto;
     }
@@ -53,7 +55,8 @@ public class BookService {
 
         bookEntity.setAuthor(bookDto.getAuthor());
         bookEntity.setTitle(bookDto.getTitle());
-
+        bookEntity.setIsbn(bookDto.getIsbn());
+        bookEntity.setCount(bookDto.getCount());
         this.bookRepository.save(bookEntity);
 
         return bookEntity.getId();
@@ -65,6 +68,8 @@ public class BookService {
         if (byId.isPresent()) {
             byId.get().setAuthor(bookDto.getAuthor());
             byId.get().setTitle(bookDto.getTitle());
+            byId.get().setIsbn(bookDto.getIsbn());
+            byId.get().setCount(bookDto.getCount());
         }
     }
 
